@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Movies.Client.ApiServices;
-using Movies.Client.Data;
 using Movies.Client.Models;
 
 namespace Movies.Client.Controllers
 {
+    [Authorize]
     public class MoviesController : Controller
     {
         private readonly IMovieApiService _movieApiService;
@@ -18,7 +18,7 @@ namespace Movies.Client.Controllers
         // GET: Movies
         public async Task<IActionResult> Index()
         {
-              return View(await _movieApiService.GetMovies());
+            return View(await _movieApiService.GetMovies());
         }
 
         // GET: Movies/Details/5

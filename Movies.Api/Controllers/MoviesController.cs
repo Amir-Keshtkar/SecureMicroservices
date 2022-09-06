@@ -17,7 +17,7 @@ namespace Movies.Api.Controllers
         {
             _moviesContext = moviesContext;
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
         {

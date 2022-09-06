@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Movies.Client.Models;
+﻿using Movies.Client.Models;
 
 namespace Movies.Client.ApiServices
 {
@@ -22,16 +21,16 @@ namespace Movies.Client.ApiServices
 
         public async Task<IEnumerable<Movie>> GetMovies()
         {
-            var movies=new List<Movie>();
+            var movies = new List<Movie>();
             movies.Add(new Movie()
             {
-                Id=1,
-                Genre="Comics",
-                Title="asd",
-                ImageUrl="images/src",
-                Rating="9.2",
-                Owner="swn",
-                ReleaseDate=DateTime.Now,
+                Id = 1,
+                Genre = "Comics",
+                Title = "asd",
+                ImageUrl = "images/src",
+                Rating = "9.2",
+                Owner = "swn",
+                ReleaseDate = DateTime.Now,
             });
             return await Task.FromResult(movies);
         }
