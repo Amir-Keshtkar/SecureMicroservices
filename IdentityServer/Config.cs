@@ -8,7 +8,7 @@ namespace IdentityServer
 {
     public class Config
     {
-        public static IEnumerable<Client> Clients() => new Client[]{
+        public static IEnumerable<Client> Clients => new Client[]{
             new Client{
                 ClientId = "movieClient",
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
@@ -27,11 +27,11 @@ namespace IdentityServer
                 AllowRememberConsent = false,
                 RedirectUris = new List<string>()
                 {
-                    "https://localhost:7256/signin-oidc"
+                    "https://localhost:7065/signin-oidc"
                 },
                 PostLogoutRedirectUris = new List<string>()
                 {
-                    "https://localhost:7256/signout-callback-oidc"
+                    "https://localhost:7065/signout-callback-oidc"
                 },
                 ClientSecrets = new List<Secret>
                 {
@@ -48,7 +48,7 @@ namespace IdentityServer
                     }
                 }
             };
-        public static IEnumerable<ApiScope> ApiScopes() => new ApiScope[]
+        public static IEnumerable<ApiScope> ApiScopes => new ApiScope[]
             {
                 new ApiScope("movieAPI", "Movie API")
             };
@@ -73,7 +73,7 @@ namespace IdentityServer
           };
 
         public static List<TestUser> TestUsers =>
-            new List<TestUser>
+            new()
             {
                 new TestUser
                 {

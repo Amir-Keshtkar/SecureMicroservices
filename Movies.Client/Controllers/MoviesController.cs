@@ -1,7 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Movies.Client.ApiServices;
 using Movies.Client.Models;
+using NuGet.Protocol;
+using System.Diagnostics;
 
 namespace Movies.Client.Controllers
 {
@@ -18,7 +24,24 @@ namespace Movies.Client.Controllers
         // GET: Movies
         public async Task<IActionResult> Index()
         {
+            LogTokenAndClaims();
             return View(await _movieApiService.GetMovies());
+        }
+
+        public async Task LogTokenAndClaims()
+        {
+            var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.IdToken);
+            Debug.WriteLine($"Identity Token: {identityToken}");
+            foreach (var claim in User.Claims)
+            {
+                Debug.WriteLine($"claim type: {claim.Type} , claim value: {claim.Value}");
+            }
+        }
+
+        public async Task LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
 
         // GET: Movies/Details/5
