@@ -2,10 +2,8 @@
 using Movies.Client.ApiServices;
 using Movies.Client.Data;
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<MoviesClientContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MoviesClientContext") ?? throw new InvalidOperationException("Connection string 'MoviesClientContext' not found.")));
 
-builder.Services.AddTransient<IMovieApiService, MovieApiService>();
+builder.Services.AddScoped<IMovieApiService, MovieApiService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
