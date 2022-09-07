@@ -37,14 +37,15 @@ namespace Movies.Api.Controllers
             return movie;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMovie(int id, Movie movie)
+        [HttpPut("PutMovie/{id}")]
+        public async Task<ActionResult<Movie>> PutMovie(int id, [FromBody] Movie movie)
         {
             if (id != movie.Id)
             {
                 return BadRequest();
             }
             _moviesContext.Entry(movie).State = EntityState.Modified;
+            var updateMovie = _moviesContext.Movies.Update(movie);
             try
             {
                 await _moviesContext.SaveChangesAsync();
@@ -60,14 +61,14 @@ namespace Movies.Api.Controllers
                     throw;
                 }
             }
-            return NoContent();
+            return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
         }
 
         // POST: api/Movies
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Movie>> PostMovie([FromBody]Movie movie)
+        public async Task<ActionResult<Movie>> PostMovie([FromBody] Movie movie)
         {
             _moviesContext.Movies.Add(movie);
             await _moviesContext.SaveChangesAsync();

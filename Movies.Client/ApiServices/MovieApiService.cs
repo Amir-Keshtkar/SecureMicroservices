@@ -26,7 +26,7 @@ namespace Movies.Client.ApiServices
             response.EnsureSuccessStatusCode();
 
             var result = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Movie>(result)!; 
+            return JsonConvert.DeserializeObject<Movie>(result)!;
         }
 
         public Task Delete(string id)
@@ -89,9 +89,15 @@ namespace Movies.Client.ApiServices
             //return JsonConvert.DeserializeObject<List<Movie>>(result)!;
         }
 
-        public Task<Movie> Update(Movie movie)
+        public async Task<Movie> Update(int id, Movie movie)
         {
-            throw new NotImplementedException();
+            var httpClient = _httpClientFactory.CreateClient("MovieApiClient");
+
+            var response = await httpClient.PutAsJsonAsync($"api/movies/PutMovie/{id}", movie).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Movie>(result)!;
         }
     }
 }

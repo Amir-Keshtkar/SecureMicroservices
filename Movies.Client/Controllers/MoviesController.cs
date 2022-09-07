@@ -79,7 +79,7 @@ namespace Movies.Client.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Genre,Rating,ReleaseDate,ImageUrl,Owner")] Movie movie)
         {
-            return View();
+            return View(await _movieApiService.Update(id,movie));
         }
 
         // GET: Movies/Delete/5
