@@ -20,7 +20,8 @@ namespace IdentityServer
                     "movieAPI"
                     }
                 },
-            new Client{ ClientId = "movies_mvc_client",
+            new Client{
+                ClientId = "movies_mvc_client",
                 ClientName = "Movies MVC Web App",
                 AllowedGrantTypes = GrantTypes.Code,
                 //RequirePkce = false,
@@ -72,8 +73,7 @@ namespace IdentityServer
               //      new List<string>() { "role" })
           };
 
-        public static List<TestUser> TestUsers =>
-            new()
+        public static List<TestUser> TestUsers=> new()
             {
                 new TestUser
                 {
