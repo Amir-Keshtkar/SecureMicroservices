@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movies.Api.Data;
 using Movies.Api.Models;
+using System.Net;
 
 namespace Movies.Api.Controllers
 {
@@ -66,7 +67,7 @@ namespace Movies.Api.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Movie>> PostMovie(Movie movie)
+        public async Task<ActionResult<Movie>> PostMovie([FromBody]Movie movie)
         {
             _moviesContext.Movies.Add(movie);
             await _moviesContext.SaveChangesAsync();
