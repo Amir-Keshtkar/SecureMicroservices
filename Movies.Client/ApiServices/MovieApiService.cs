@@ -35,13 +35,13 @@ namespace Movies.Client.ApiServices
             var disco=await client.GetDiscoveryDocumentAsync("https://localhost:7256");
             if (disco.IsError)
             {
-                return null;
+                return new List<Movie>();
             }
 
             var responseToken=await client.RequestClientCredentialsTokenAsync(apiClientCredential);
             if (responseToken.IsError)
             {
-                return null;
+                return new List<Movie>();
             }
 
             var apiClient=new HttpClient();
