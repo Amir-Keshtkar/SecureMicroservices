@@ -18,13 +18,13 @@ namespace Movies.Api.Controllers
             _moviesContext = moviesContext;
         }
 
-        [HttpGet]
+        [HttpGet("GetMovies")]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
         {
             return await _moviesContext.Movies.ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetMovie/{id}")]
         public async Task<ActionResult<Movie>> GetMovie(int id)
         {
             var movie = await _moviesContext.Movies.FindAsync(id);

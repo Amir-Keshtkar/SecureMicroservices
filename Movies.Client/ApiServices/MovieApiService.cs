@@ -23,15 +23,22 @@ namespace Movies.Client.ApiServices
             throw new NotImplementedException();
         }
 
-        public Task<Movie> GetById(string id)
+        public async Task<Movie> GetById(int id)
         {
-            throw new NotImplementedException();
+            var httpClient=_httpClientFactory.CreateClient("MovieApiClient");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"api/movies/GetMovie/{id}/");
+            var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                .ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Movie>(result)!;
         }
 
         public async Task<IEnumerable<Movie>> GetMovies()
         {
             var httpClient = _httpClientFactory.CreateClient("MovieApiClient");
-            var request=new HttpRequestMessage(HttpMethod.Get, "api/movies/");
+            var request=new HttpRequestMessage(HttpMethod.Get, "api/movies/GetMovies/");
             var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
                 .ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
